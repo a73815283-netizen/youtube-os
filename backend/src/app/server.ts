@@ -45,6 +45,7 @@ import { registerVideoRoutes } from '../video/video-routes.js';
 import { registerMusicRoutes } from '../music/music-routes.js';
 import { registerGenreRoutes } from '../genre/genre-routes.js';
 import { registerCreatorRoutes } from '../creator/creator-routes.js';
+import { registerMonetizationRoutes } from '../monetization/monetization-routes.js';
 import { closeRedis, initializeRedis } from '../cache/redis-client.js';
 import { registerCorrelationIds } from '../shared/correlation-id.js';
 import { registerErrorHandler } from '../shared/errors.js';
@@ -124,6 +125,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   registerMusicRoutes(app);
   registerGenreRoutes(app);
   registerCreatorRoutes(app);
+  registerMonetizationRoutes(app);
   registerAdminRoutes(app);
   registerAISyncRoutes(app);
   registerWorkflowRoutes(app);
