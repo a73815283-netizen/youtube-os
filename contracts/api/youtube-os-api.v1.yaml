@@ -31,6 +31,8 @@ tags:
     description: YouTube Data API and OAuth integration operations.
   - name: Privacy
     description: Authenticated personal-data rights operations.
+  - name: Wallet
+    description: Sandbox-only wallet projection and simulated withdrawal operations.
 paths:
   /health/live:
     get:
@@ -142,6 +144,71 @@ paths:
       summary: Register an account deletion request and revoke the current session
       responses:
         '200': { description: Deletion request receipt }
+        '401': { $ref: '#/components/responses/Error' }
+  /wallet/summary:
+    get:
+      tags: [Wallet]
+      summary: Get the authenticated creator's sandbox wallet summary
+      description: Returns a read-only wallet projection through the YouTube OS backend. No direct Global Ecosystem database access or provider calls occur.
+      responses:
+        '200':
+          description: Sandbox wallet summary envelope
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, meta]
+                properties:
+                  data:
+                    type: object
+                    required: [mode, currency, availableBalance, allocation, limits, compliance, transactions]
+                    properties:
+                      mode: { type: string, enum: [SANDBOX] }
+                      currency: { type: string, enum: [USD] }
+                      availableBalance: { type: number, minimum: 0 }
+                      allocation:
+                        type: object
+                        required: [grossRevenue, creatorAmount, platformAmount, creatorPercent, platformPercent]
+                        properties:
+                          grossRevenue: { type: number }
+                          creatorAmount: { type: number }
+                          platformAmount: { type: number }
+                          creatorPercent: { type: integer, enum: [50] }
+                          platformPercent: { type: integer, enum: [50] }
+                      limits:
+                        type: object
+                        required: [daily, weekly, monthly]
+                        properties:
+                          daily: { type: number, enum: [1000] }
+                          weekly: { type: number, enum: [5000] }
+                          monthly: { type: number, enum: [20000] }
+                      compliance:
+                        type: object
+                        required: [kycComplete, amlComplete]
+                        properties:
+                          kycComplete: { type: boolean }
+                          amlComplete: { type: boolean }
+                      transactions: { type: array, items: { type: object } }
+                  meta: { $ref: '#/components/schemas/Meta' }
+        '401': { $ref: '#/components/responses/Error' }
+  /wallet/withdrawals:
+    post:
+      tags: [Wallet]
+      summary: Submit a simulated sandbox withdrawal request
+      description: This test-only operation never moves funds. KYC and AML verification are required; requests of $5,000 or more require explicit 2FA confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount, twoFactorConfirmed]
+              properties:
+                amount: { type: number, exclusiveMinimum: 0, maximum: 20000 }
+                twoFactorConfirmed: { type: boolean }
+      responses:
+        '200': { description: Simulated withdrawal receipt envelope }
+        '400': { $ref: '#/components/responses/Error' }
         '401': { $ref: '#/components/responses/Error' }
   /admin/users:
     get:

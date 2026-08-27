@@ -46,6 +46,7 @@ export function CreatorDashboard() {
   const [oauthState] = useState(() => crypto.randomUUID());
   const oauthUrl = createYouTubeOAuthUrl(oauthState);
   const initials = publicRuntimeConfig.userDisplayName.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
+  const creatorRoute = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`;
 
   const planVideo = async () => {
     if (!prompt.trim()) return;
@@ -62,7 +63,7 @@ export function CreatorDashboard() {
   return <div className="min-h-screen overflow-hidden bg-[#070b16] text-white">
     <nav className="border-b border-white/10 bg-[#070b16]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 lg:px-10">
       <a href={import.meta.env.BASE_URL} className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/40 bg-gradient-to-br from-cyan-400/20 to-violet-500/30 text-xl font-black text-cyan-200">AI</span><span><strong className="block text-sm tracking-wide">AIArbiTechnology</strong><small className="block text-[9px] uppercase tracking-[.3em] text-slate-400">Creator Dashboard</small></span></a>
-      <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex"><a href="#overview" className="text-white">Overview</a><a href="#analytics" className="hover:text-white">Analytics</a><a href="#videos" className="hover:text-white">Videos</a><a href="#director" className="hover:text-white">AI Director</a></div>
+      <div className="hidden items-center gap-6 text-sm text-slate-300 md:flex"><a href="#overview" className="text-white">Overview</a><a href={creatorRoute('/analytics')} className="hover:text-white">Analytics</a><a href={creatorRoute('/goals')} className="hover:text-white">Goals</a><a href={creatorRoute('/assistant')} className="hover:text-white">AI Assistant</a><a href={creatorRoute('/wallet')} className="hover:text-white">Wallet</a><a href={creatorRoute('/settings')} className="hover:text-white">Settings</a></div>
       <div className="flex items-center gap-3"><span className="hidden text-sm text-slate-300 sm:inline">◎ EN⌄</span><a href={import.meta.env.BASE_URL} className="rounded-lg border border-white/15 px-4 py-2 text-sm">Ecosystem</a>{publicRuntimeConfig.userAvatarUrl ? <img src={publicRuntimeConfig.userAvatarUrl} alt={`${publicRuntimeConfig.userDisplayName} avatar`} className="h-10 w-10 rounded-full object-cover" referrerPolicy="no-referrer" /> : <span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 text-xs font-bold" aria-label={`${publicRuntimeConfig.userDisplayName} avatar`}>{initials}</span>}</div>
     </div></nav>
     <main id="overview" className="!p-0">
