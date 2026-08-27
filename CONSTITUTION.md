@@ -416,3 +416,9 @@ Sprint Requirements
 Source Code
 
 Shunday qilib, bu 23 modda YouTube OS'ning ichki “qonunlari” hisoblanadi. Kod arxitekturani boshqarmaydi. Arxitektura va Konstitutsiya kodni boshqaradi. 🔒
+
+### Sandbox Wallet va monetizatsiya
+
+Creator Wallet interfeysi faqat tasdiqlangan YouTube OS backend API/Event contractlari orqali Global Ecosystem shared Wallet xizmatining sandbox proyeksiyasini ko‘rsatadi. Global Ecosystem DB'ga direct access, cross-platform SQL, yoki Circle kabi provider credentiallaridan frontendda foydalanish taqiqlanadi.
+
+Amaldagi sandbox monetizatsiya siyosati eligible gross revenue'ni 50% Creator va 50% Platform ulushiga ajratadi. Withdrawal faqat test/sandbox so‘rov bo‘lib, real mablag‘ harakatini amalga oshirmaydi. KYC/AML, limitlar va $5,000+ so‘rovlar uchun explicit 2FA tekshiruvi backend tomonidan ham majburiy tekshirilishi kerak.

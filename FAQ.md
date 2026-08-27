@@ -173,3 +173,15 @@ Ya’ni:
 YouTube OS → FAQ knowledge/content → Global Help & Support → Creator
 
 Shu modelda FAQ boshqa platformalarning support tizimlarini takrorlamaydi.
+
+21. Creator Wallet real pulni saqlaydimi yoki yechib beradimi?
+
+Yo‘q. Hozirgi Creator Wallet faqat sandbox/test interfeysdir. Circle credentiallari sozlanmagan va ushbu rejim real pulni saqlamaydi, o‘tkazmaydi yoki yechib bermaydi.
+
+22. Creator revenue qanday taqsimlanadi?
+
+Sandbox monetizatsiya ko‘rinishida eligible gross revenue 50% Creator va 50% Platform ulushiga ajratib ko‘rsatiladi. Bu ko‘rsatkichlar backend API contracti orqali olinadi.
+
+23. Sandbox withdrawal qoidalari qanday?
+
+KYC va AML tasdig‘i talab qilinadi. Ko‘rsatilgan limitlar: kuniga $1,000, haftasiga $5,000 va oyiga $20,000. $5,000 yoki undan katta so‘rovlar uchun aniq 2FA tasdig‘i talab qilinadi. Frontend bu talablarni ko‘rsatadi, ammo yakuniy tekshiruv faqat backend/shared Wallet xizmatida bo‘ladi.

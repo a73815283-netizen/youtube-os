@@ -13,6 +13,10 @@ import { PromptRegistryPage } from '../pages/PromptRegistryPage';
 import { OnboardingPage } from '../pages/OnboardingPage';
 import { SuccessScorePage } from '../pages/SuccessScorePage';
 import { TwinPage } from '../pages/TwinPage';
+import { AIAssistantPage } from '../pages/AIAssistantPage';
+import { AnalyticsPage } from '../pages/AnalyticsPage';
+import { WalletPage } from '../pages/WalletPage';
+import { SettingsPage } from '../pages/SettingsPage';
 import type { PlatformFoundationClient } from '../platform/platform-client';
 
 export interface AppProps {
@@ -35,6 +39,10 @@ export function App(_props: AppProps) {
     : path === '/onboarding' ? <OnboardingPage />
     : path === '/success' ? <SuccessScorePage />
     : path === '/twin' ? <TwinPage />
+    : path === '/assistant' ? <AIAssistantPage />
+    : path === '/analytics' ? <AnalyticsPage />
+    : path === '/wallet' ? <WalletPage />
+    : path === '/settings' ? <SettingsPage />
     : <GlobalEcosystemHomePage />;
   return <AppShell>{page}</AppShell>;
 }

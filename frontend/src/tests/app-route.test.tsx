@@ -29,6 +29,10 @@ describe('App routing', () => {
     ['/youtube-os/onboarding', 'Creator Onboarding'],
     ['/youtube-os/success', 'Creator Success'],
     ['/youtube-os/twin', 'Creator Twin'],
+    ['/youtube-os/assistant', 'AI Assistant'],
+    ['/youtube-os/analytics', 'Analytics Center'],
+    ['/youtube-os/wallet', 'Creator Wallet'],
+    ['/youtube-os/settings', 'Settings'],
   ])('renders the page for %s', (pathname, expected) => {
     vi.stubGlobal('window', {
       location: { pathname },
