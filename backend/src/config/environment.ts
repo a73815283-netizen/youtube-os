@@ -51,6 +51,10 @@ const environmentSchema = z
     OPENAI_API_KEY: optionalNonEmpty,
     OPENAI_TRANSLATION_MODEL: z.string().min(1).default('gpt-4o-mini'),
     GOOGLE_TRANSLATE_API_KEY: optionalNonEmpty,
+    MONETIZATION_MODE: z.enum(['sandbox', 'production']).default('sandbox'),
+    CIRCLE_API_KEY: optionalNonEmpty,
+    CIRCLE_ENTITY_SECRET: optionalNonEmpty,
+    KYC_AML_API_KEY: optionalNonEmpty,
   })
   .superRefine((config, context) => {
     const hasClientId = Boolean(config.GLOBAL_ECOSYSTEM_CLIENT_ID);
@@ -116,6 +120,13 @@ const environmentSchema = z
         code: z.ZodIssueCode.custom,
         path: ['GOOGLE_TRANSLATE_API_KEY'],
         message: 'GOOGLE_TRANSLATE_API_KEY is required when TRANSLATION_PROVIDER=google',
+      });
+    }
+    if (config.MONETIZATION_MODE === 'production' && (!config.CIRCLE_API_KEY || !config.CIRCLE_ENTITY_SECRET || !config.KYC_AML_API_KEY)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['MONETIZATION_MODE'],
+        message: 'Production monetization requires Circle and KYC/AML credentials.',
       });
     }
   });
