@@ -28,7 +28,7 @@ export function DashboardPage({ initialData }: { initialData?: DashboardSummary 
     );
   }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-black p-8 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900/70 via-purple-900/70 to-black/70 p-8 text-white">
       <p role="status">Loading creator dashboard…</p>
       <header className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">AIArbiTech YouTube OS</h1>

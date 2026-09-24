@@ -47,7 +47,7 @@ export function AnalyticsPage({ initialData, client }: AnalyticsPageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-black p-6 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900/70 via-purple-900/70 to-black/70 p-6 text-white">
       <header className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Analytics Center</h1>
         <div className="rounded-full bg-gray-800 px-4 py-2 text-sm text-gray-300">Mock Data</div>

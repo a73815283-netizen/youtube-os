@@ -76,7 +76,7 @@ export function GlobalEcosystemHomePage() {
   }, [language, i18n]);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#070b16] text-white">
+    <div className="min-h-screen overflow-hidden bg-[#070b16]/80 text-white">
       <nav className="border-b border-white/10 bg-[#070b16]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 lg:px-10">
           <a href="#" className="flex items-center gap-3">

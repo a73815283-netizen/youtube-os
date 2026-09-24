@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { publicRuntimeConfig } from '../config/runtime';
 import { BouncyLetters } from '../shared/components/BouncyLetters';
+import { LogoutConfirmDialog } from '../shared/components/LogoutConfirmDialog';
 import LoginPage from '../pages/LoginPage';
 
 type ShellVariant = 'creator' | 'president';
@@ -59,6 +60,14 @@ export function YouTubeOSLayout({ children, variant = 'creator' }: { children: R
   const [signedIn, setSignedIn] = useState(() => Boolean(localStorage.getItem('yo-user')));
   const [userName, setUserName] = useState(() => localStorage.getItem('yo-user') || baseName);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('yo-user');
+    setSignedIn(false);
+    setUserName(baseName);
+    setLogoutOpen(false);
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -108,7 +117,7 @@ export function YouTubeOSLayout({ children, variant = 'creator' }: { children: R
         )}
         <div className="os-sidebar-foot">
           <a href={route('/onboarding')}>Help Center</a>
-          <a href={route('/settings')}>Sign out</a>
+          <button type="button" className="os-sidebar-foot-link" onClick={() => setLogoutOpen(true)}>Sign out</button>
         </div>
       </aside>
       <div className="os-stage">
@@ -140,7 +149,7 @@ export function YouTubeOSLayout({ children, variant = 'creator' }: { children: R
                     <small>{variant === 'president' ? 'AIArbiTechnology' : 'Premium Plan'}</small>
                   </span>
                 </div>
-                <button type="button" className="os-logout-btn" onClick={() => { localStorage.removeItem('yo-user'); setSignedIn(false); setUserName(baseName); }}><BouncyLetters text="Выйти" /></button>
+                <button type="button" className="os-logout-btn" onClick={() => setLogoutOpen(true)}><BouncyLetters text="Выйти" /></button>
               </>
             ) : (
               <button type="button" className="os-login-btn" onClick={() => setLoginOpen(true)}><BouncyLetters text="Войти" /></button>
@@ -151,6 +160,7 @@ export function YouTubeOSLayout({ children, variant = 'creator' }: { children: R
       </div>
       </div>
       <LoginPage open={loginOpen} onClose={() => setLoginOpen(false)} onLogin={(name) => { setSignedIn(true); setUserName(name); }} />
+      <LogoutConfirmDialog open={logoutOpen} userName={userName} onClose={() => setLogoutOpen(false)} onConfirm={handleLogout} />
     </>
   );
 }
