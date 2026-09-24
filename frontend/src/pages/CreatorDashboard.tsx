@@ -3,18 +3,78 @@ import { createPlatformApiClient, type CreatorStats, type YouTubeStatus } from '
 import { createYouTubeOAuthUrl, publicRuntimeConfig } from '../config/runtime';
 
 const api = createPlatformApiClient();
-const chart = [34, 48, 42, 68, 57, 82, 65, 94, 76, 100];
 
-function NetworkOrb() {
-  return <div className="relative mx-auto h-[310px] w-[310px] sm:h-[420px] sm:w-[420px]">
-    <div className="absolute inset-10 rounded-full bg-violet-600/20 blur-3xl" />
-    <div className="absolute inset-12 rounded-full border border-cyan-300/30 bg-[radial-gradient(circle_at_35%_25%,rgba(99,102,241,.8),rgba(8,20,58,.9)_55%,rgba(2,7,20,.98))] shadow-[0_0_90px_rgba(63,94,251,.35)]" />
-    <div className="absolute inset-20 rounded-full opacity-70 [background-image:radial-gradient(circle,rgba(103,232,249,.8)_1px,transparent_1px)] [background-size:9px_9px] [mask-image:radial-gradient(circle,#000,transparent_72%)]" />
-    <div className="absolute inset-4 rounded-full border border-cyan-300/20 [transform:rotateX(64deg)_rotateZ(-18deg)]" />
-    <div className="absolute inset-0 rounded-full border border-violet-300/20 [transform:rotateY(63deg)_rotateZ(20deg)]" />
-    <div className="absolute inset-0 flex items-center justify-center text-7xl font-black tracking-[-.2em] text-white/90">A<span className="text-cyan-300">I</span></div>
-    {['left-3 top-20', 'right-0 top-28', 'bottom-12 left-8', 'bottom-20 right-4'].map((position, index) => <span key={position} className={`absolute ${position} flex h-11 w-11 items-center justify-center rounded-xl border border-white/20 bg-slate-950/90 text-cyan-200 shadow-[0_0_22px_rgba(34,211,238,.35)]`}>{['▶', '▣', '♬', '✦'][index]}</span>)}
-  </div>;
+const growth = {
+  views: [42, 48, 45, 62, 58, 70, 66, 78, 74, 88, 82, 96],
+  watch: [28, 32, 30, 40, 44, 42, 50, 55, 52, 61, 58, 70],
+  subs: [18, 22, 20, 28, 26, 34, 32, 40, 38, 46, 44, 52],
+  ctr: [12, 16, 14, 18, 22, 20, 24, 28, 26, 30, 34, 32],
+  ret: [22, 20, 26, 24, 30, 28, 34, 32, 38, 36, 42, 40],
+};
+
+const recs = [
+  { tone: 'blue', title: 'Create a video on “Top 5 AI Tools”', body: 'High-trend topic with strong CTR potential.', action: 'Create' },
+  { tone: 'violet', title: 'Start a Shorts posting sequence', body: 'Last 7 days of Shorts drove 46% of new views.', action: 'Create' },
+  { tone: 'amber', title: 'Lift thumbnail CTR 8.7% → 10%+', body: 'AI generated 5 thumbnail variants for you.', action: 'Review' },
+  { tone: 'rose', title: 'Optimize video description SEO', body: 'Two videos are missing SEO-ready copy.', action: 'Optimize' },
+  { tone: 'emerald', title: 'Schedule Friday 18:00 upload', body: 'Best audience window for your niche.', action: 'Schedule' },
+];
+
+const tasks = [
+  'Publish 1 long-form video',
+  'Publish 2 Shorts',
+  'Test thumbnail variants',
+  'Complete SEO checklist',
+  'Write a community post',
+  'Review analytics report',
+  'Plan next week’s calendar',
+  'Track competitor trends',
+  'Reply to pinned comments',
+  'Prepare end-screen CTA',
+];
+
+const videos = [
+  { title: 'Top 7 AI Tools That Will Change Your Life', views: '12.4K', ctr: '9.8%', ret: '58%', watch: '612h' },
+  { title: 'How to Make Money with AI in 2025', views: '8.7K', ctr: '8.1%', ret: '54%', watch: '430h' },
+  { title: 'AI Automation Full Guide (Step by Step)', views: '15.3K', ctr: '10.2%', ret: '61%', watch: '845h' },
+];
+
+const roadmap = [
+  { label: 'Channel Launch', date: '10.03.2025', done: true },
+  { label: 'First 100 Subs', date: '24.03.2025', done: true },
+  { label: 'First 1K Subs', date: 'In progress', done: false, current: true },
+  { label: 'Monetization Ready', date: '812 / 1,000', done: false },
+  { label: 'Monetized', date: '3,560 / 4,000', done: false },
+  { label: '$1K / mo', date: '—', done: false },
+  { label: '$5K / mo', date: '—', done: false },
+];
+
+function LineChart() {
+  const w = 640;
+  const h = 180;
+  const toPoints = (values: number[]) =>
+    values.map((value, index) => `${(index / (values.length - 1)) * w},${h - (value / 100) * (h - 24) - 8}`).join(' ');
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} className="os-chart" aria-hidden>
+      {[0, 1, 2, 3].map((line) => <line key={line} x1="0" y1={24 + line * 40} x2={w} y2={24 + line * 40} stroke="rgba(148,163,184,.12)" />)}
+      <polyline fill="none" stroke="#38bdf8" strokeWidth="2.4" points={toPoints(growth.views)} />
+      <polyline fill="none" stroke="#34d399" strokeWidth="2.2" points={toPoints(growth.watch)} />
+      <polyline fill="none" stroke="#a78bfa" strokeWidth="2.2" points={toPoints(growth.subs)} />
+      <polyline fill="none" stroke="#fbbf24" strokeWidth="2" points={toPoints(growth.ctr)} />
+      <polyline fill="none" stroke="#fb7185" strokeWidth="2" points={toPoints(growth.ret)} />
+    </svg>
+  );
+}
+
+function Ring({ value, color }: { value: number; color: string }) {
+  const r = 28;
+  const c = 2 * Math.PI * r;
+  return (
+    <svg viewBox="0 0 72 72" className="os-ring">
+      <circle cx="36" cy="36" r={r} fill="none" stroke="rgba(148,163,184,.16)" strokeWidth="7" />
+      <circle cx="36" cy="36" r={r} fill="none" stroke={color} strokeWidth="7" strokeLinecap="round" strokeDasharray={`${(value / 100) * c} ${c}`} transform="rotate(-90 36 36)" />
+    </svg>
+  );
 }
 
 export function CreatorDashboard() {
@@ -23,16 +83,12 @@ export function CreatorDashboard() {
   const [prompt, setPrompt] = useState('');
   const [youtubeStatus, setYoutubeStatus] = useState<YouTubeStatus>();
   const [authenticationRequired, setAuthenticationRequired] = useState(false);
+  const name = publicRuntimeConfig.userDisplayName;
 
   useEffect(() => {
-    void api.getYouTubeStatus()
-      .then(setYoutubeStatus)
-      .catch(() => setYoutubeStatus(undefined));
-
+    void api.getYouTubeStatus().then(setYoutubeStatus).catch(() => setYoutubeStatus(undefined));
     void Promise.all([api.getCreatorStats(), api.getRevenue(), api.getVideos()])
-      .then(([creatorStats]) => {
-        setStats(creatorStats);
-      })
+      .then(([creatorStats]) => setStats(creatorStats))
       .catch((error: unknown) => {
         const message = error instanceof Error ? error.message : 'Unable to load creator data.';
         if (message.includes('401')) {
@@ -45,8 +101,7 @@ export function CreatorDashboard() {
 
   const [oauthState] = useState(() => crypto.randomUUID());
   const oauthUrl = createYouTubeOAuthUrl(oauthState);
-  const initials = publicRuntimeConfig.userDisplayName.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
-  const creatorRoute = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`;
+  const kpi = stats?.kpis ?? [];
 
   const planVideo = async () => {
     if (!prompt.trim()) return;
@@ -60,24 +115,158 @@ export function CreatorDashboard() {
     }
   };
 
-  return <div className="min-h-screen overflow-hidden bg-[#070b16] text-white">
-    <nav className="border-b border-white/10 bg-[#070b16]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 lg:px-10">
-      <a href={import.meta.env.BASE_URL} className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/40 bg-gradient-to-br from-cyan-400/20 to-violet-500/30 text-xl font-black text-cyan-200">AI</span><span><strong className="block text-sm tracking-wide">AIArbiTechnology</strong><small className="block text-[9px] uppercase tracking-[.3em] text-slate-400">Creator Dashboard</small></span></a>
-      <div className="hidden items-center gap-6 text-sm text-slate-300 md:flex"><a href="#overview" className="text-white">Overview</a><a href={creatorRoute('/analytics')} className="hover:text-white">Analytics</a><a href={creatorRoute('/goals')} className="hover:text-white">Goals</a><a href={creatorRoute('/assistant')} className="hover:text-white">AI Assistant</a><a href={creatorRoute('/wallet')} className="hover:text-white">Wallet</a><a href={creatorRoute('/settings')} className="hover:text-white">Settings</a></div>
-      <div className="flex items-center gap-3"><span className="hidden text-sm text-slate-300 sm:inline">◎ EN⌄</span><a href={import.meta.env.BASE_URL} className="rounded-lg border border-white/15 px-4 py-2 text-sm">Ecosystem</a>{publicRuntimeConfig.userAvatarUrl ? <img src={publicRuntimeConfig.userAvatarUrl} alt={`${publicRuntimeConfig.userDisplayName} avatar`} className="h-10 w-10 rounded-full object-cover" referrerPolicy="no-referrer" /> : <span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 text-xs font-bold" aria-label={`${publicRuntimeConfig.userDisplayName} avatar`}>{initials}</span>}</div>
-    </div></nav>
-    <main id="overview" className="!p-0">
-      <section className="relative mx-auto grid max-w-[1380px] items-center gap-4 px-6 pb-8 pt-12 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-10 lg:pt-16">
-        <div className="pointer-events-none absolute -left-40 top-0 h-[480px] w-[480px] rounded-full bg-violet-700/15 blur-[120px]" />
-        <div className="relative z-10"><p className="mb-5 text-xs font-bold uppercase tracking-[.32em] text-cyan-300">Your creator command center</p><h1 className="max-w-xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl"><span className="bg-gradient-to-r from-violet-400 via-cyan-300 to-white bg-clip-text text-transparent">Create.</span> Grow.<br />Earn globally.</h1><p className="mt-6 max-w-lg text-base leading-7 text-slate-400">Analytics, revenue, videos, and AI production tools connected in one future-ready workspace.</p><div className="mt-8 flex gap-3"><a href="#analytics" className="rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-bold shadow-[0_0_26px_rgba(56,189,248,.25)]">View analytics →</a><a href="#director" className="rounded-lg border border-cyan-300/30 px-5 py-3 text-sm font-semibold text-cyan-200">Create with AI</a></div></div>
-        <NetworkOrb />
-      </section>
-      <section className="mx-auto grid max-w-[1380px] grid-cols-2 gap-3 px-6 pb-8 sm:grid-cols-4 lg:px-10">{authenticationRequired ? <p className="col-span-full rounded-xl border border-cyan-300/20 bg-cyan-400/5 px-4 py-3 text-sm text-cyan-100" role="status">Sign in to load your private creator analytics.</p> : (stats?.kpis ?? []).slice(0, 4).map((metric) => <div key={metric.label} className="border-r border-white/10 px-4 py-3 last:border-0"><p className="text-2xl font-black text-white">{metric.value}</p><p className="mt-1 text-xs text-slate-500">{metric.label}</p><p className="mt-2 text-xs text-emerald-300">+{metric.delta}% growth</p></div>)}</section>
-      <section id="analytics" className="mx-6 rounded-2xl border border-white/10 bg-[#101827]/80 p-5 shadow-[0_20px_80px_rgba(0,0,0,.2)] lg:mx-auto lg:max-w-[1380px] lg:p-7"><div className="flex items-center justify-between gap-4"><div><h2 className="text-lg font-bold">Creator analytics</h2><p className="mt-1 text-sm text-slate-500">Your channel momentum · Last 30 days</p></div><div className="text-right"><span className="rounded-lg border border-white/10 px-3 py-2 text-xs text-slate-400">{youtubeStatus?.status === 'CONFIGURED' ? 'YouTube API connected' : 'YouTube fallback mode'}</span>{oauthUrl && !youtubeStatus?.uploadConfigured && <a href={oauthUrl} className="mt-3 block text-xs font-bold text-cyan-300">Connect YouTube OAuth →</a>}</div></div><div className="mt-7 flex h-36 items-end gap-2 border-b border-white/10">{chart.map((height, index) => <div key={index} className="flex-1 rounded-t-md bg-gradient-to-t from-violet-600 to-cyan-300 opacity-80" style={{ height: `${height}%` }} />)}</div></section>
-      <section id="videos" className="mx-auto mt-6 grid max-w-[1380px] gap-6 px-6 pb-12 lg:grid-cols-[1.2fr_.8fr] lg:px-10"><div className="rounded-2xl border border-white/10 bg-[#101827]/80 p-6"><div className="flex items-center justify-between"><h2 className="font-bold">Video intelligence</h2><span className="text-xs text-cyan-300">From Global API</span></div><div className="mt-5 grid gap-3">{authenticationRequired ? <p className="text-sm text-slate-500">Sign in to load your private video intelligence.</p> : (stats?.kpis ?? []).length === 0 ? <p className="text-sm text-slate-500">Loading creator videos...</p> : ['Your latest upload performance', 'Audience retention opportunity', 'Next recommended publishing slot'].map((item) => <div key={item} className="flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-3"><span className="flex h-11 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600/60 to-cyan-500/30">▶</span><div><p className="text-sm font-semibold">{item}</p><p className="mt-1 text-xs text-slate-500">Optimized by YouTube OS intelligence</p></div></div>)}</div></div>
-        <div id="director" className="rounded-2xl border border-violet-300/20 bg-gradient-to-br from-violet-500/15 to-cyan-500/[.04] p-6"><div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/20 text-violet-200">✦</span><div><h2 className="font-bold">AI Director</h2><p className="text-xs text-slate-500">Global production intelligence</p></div></div><p className="mt-5 text-sm leading-6 text-slate-300">Describe your next story. The AI Director prepares the hook, scenes, and publishing plan.</p><textarea value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder="I want to create a video about..." className="mt-5 h-24 w-full resize-none rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-white outline-none placeholder:text-slate-600 focus:border-violet-400" /><button onClick={() => void planVideo()} className="mt-3 w-full rounded-xl bg-violet-600 px-4 py-3 text-sm font-bold hover:bg-violet-500">Generate production plan ✦</button>{notice && <p className="mt-3 text-center text-xs text-emerald-300">{notice}</p>}</div>
-      </section>
-    </main>
-    <footer className="border-t border-white/10 px-6 py-6 text-center text-xs text-slate-500">One ecosystem. Unlimited platforms. <a className="text-cyan-300" href={`mailto:${publicRuntimeConfig.supportEmail}`}>Support and data rights</a>.</footer>
-  </div>;
+  return (
+    <div className="os-dash">
+      <h1 className="sr-only">Creator Dashboard</h1>
+      {authenticationRequired && <p className="os-banner" role="status">Sign in to load your private creator analytics.</p>}
+      {notice && <p className="os-banner">{notice}</p>}
+
+      <div className="os-welcome-row">
+        <div>
+          <h2>Welcome back, {name}! 👋</h2>
+          <p>AI is actively growing your channel in the background.</p>
+        </div>
+        <div className="os-score-pill">
+          <Ring value={87} color="#22d3ee" />
+          <div><small>AI Score</small><strong>87 / 100</strong></div>
+        </div>
+        <div className="os-score-pill">
+          <span className="os-task-icon">☑</span>
+          <div><small>Today’s tasks</small><strong>8</strong></div>
+        </div>
+        <time className="os-date">6 May 2025</time>
+      </div>
+
+      <div className="os-grid-top">
+        <section className="os-card os-card--wide">
+          <header className="os-card-head">
+            <h3>Monetization progress</h3>
+            <span className="os-chip os-chip--good">On track</span>
+          </header>
+          <div className="os-mono-grid">
+            <div>
+              <p className="os-kpi-label">Subscribers</p>
+              <p className="os-kpi-value">{kpi[0]?.value ?? '812'}<small> / 1,000</small></p>
+              <div className="os-bar"><span style={{ width: '81%' }} /></div>
+              <small>Remaining: 188 · 81%</small>
+            </div>
+            <div>
+              <p className="os-kpi-label">Watch Hours</p>
+              <p className="os-kpi-value">3,560<small> / 4,000</small></p>
+              <div className="os-bar os-bar--green"><span style={{ width: '89%' }} /></div>
+              <small>Remaining: 440 · 89%</small>
+            </div>
+            <div>
+              <p className="os-kpi-label">Monetization ready</p>
+              <p className="os-kpi-value">91%</p>
+              <div className="os-bar os-bar--gold"><span style={{ width: '91%' }} /></div>
+              <small>Keep this pace — you’re almost there.</small>
+            </div>
+          </div>
+        </section>
+        <section className="os-card">
+          <h3>Next milestone estimate</h3>
+          <p className="os-muted">At your current growth rate</p>
+          <div className="os-eta">
+            <div><small>1,000 subscribers</small><strong>≈ 12 days</strong></div>
+            <div><small>4,000 watch hours</small><strong>≈ 18 days</strong></div>
+          </div>
+        </section>
+      </div>
+
+      <div className="os-grid-mid">
+        <section className="os-card os-card--chart">
+          <header className="os-card-head">
+            <h3>AI Growth Overview <small>(last 28 days)</small></h3>
+            <span className="os-chip">28 days</span>
+          </header>
+          <div className="os-metric-row">
+            {[
+              ['Views', kpi[1]?.value ?? '128.4K', '+24.5%'],
+              ['Watch Time', '1.2K', '+32.7%'],
+              ['Subscribers', '+342', '+21.3%'],
+              ['CTR / thumbnail', '8.7%', '+1.2%'],
+              ['Retention (avg.)', '56%', '+3.4%'],
+            ].map(([label, value, delta]) => (
+              <div key={label}><small>{label}</small><strong>{value}</strong><em>{delta}</em></div>
+            ))}
+          </div>
+          <LineChart />
+          <div className="os-legend">
+            <span>Views</span><span>Watch Time</span><span>Subscribers</span><span>CTR</span><span>Retention</span>
+          </div>
+          <p className="os-muted">{youtubeStatus?.status === 'CONFIGURED' ? 'YouTube API connected' : 'YouTube fallback mode'}{oauthUrl && !youtubeStatus?.uploadConfigured ? ' · Connect OAuth in Channel Settings' : ''}</p>
+        </section>
+        <section className="os-card">
+          <header className="os-card-head"><h3>AI recommendations</h3><a href="#director">See all</a></header>
+          <ul className="os-recs">
+            {recs.map((item) => (
+              <li key={item.title} className={`os-rec os-rec--${item.tone}`}>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.body}</p>
+                </div>
+                <button type="button">{item.action}</button>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="os-card">
+          <header className="os-card-head"><h3>Today’s tasks</h3><span>8/10 done</span></header>
+          <div className="os-bar os-bar--blue"><span style={{ width: '80%' }} /></div>
+          <ul className="os-tasks">
+            {tasks.map((task, index) => (
+              <li key={task} className={index < 8 ? 'done' : ''}>
+                <span>{index < 8 ? '✓' : '○'}</span>
+                {task}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <div className="os-grid-bottom">
+        <section className="os-card">
+          <header className="os-card-head"><h3>Latest videos</h3><a href="#videos">See all</a></header>
+          <ul className="os-videos" id="videos">
+            {videos.map((video) => (
+              <li key={video.title}>
+                <span className="os-thumb">▶</span>
+                <div>
+                  <strong>{video.title}</strong>
+                  <small>Views {video.views} · CTR {video.ctr} · Retention {video.ret} · {video.watch}</small>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <button type="button" className="os-ghost-btn">+ Create new video</button>
+        </section>
+        <section className="os-card">
+          <header className="os-card-head"><h3>AI Success Roadmap</h3><a href="#roadmap">See all</a></header>
+          <ol className="os-roadmap" id="roadmap">
+            {roadmap.map((step) => (
+              <li key={step.label} className={step.done ? 'done' : step.current ? 'current' : ''}>
+                <span />
+                <strong>{step.label}</strong>
+                <small>{step.date}</small>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section className="os-card os-chat" id="director">
+          <header className="os-card-head"><h3>Hi, {name}!</h3></header>
+          <p className="os-muted">Ask anything about growth, CTR, or monetization.</p>
+          <div className="os-chips">
+            <button type="button" onClick={() => setPrompt('Which topic is trending?')}>Which topic is trending?</button>
+            <button type="button" onClick={() => setPrompt('How do I improve CTR?')}>How do I improve CTR?</button>
+            <button type="button" onClick={() => setPrompt('What should I do for monetization?')}>What should I do for monetization?</button>
+          </div>
+          <div className="os-chat-input">
+            <input value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder="Ask me a question" />
+            <button type="button" onClick={() => void planVideo()}>➤</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
 }

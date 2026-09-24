@@ -3,21 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { ensureAutoTranslations, supportedLanguages, type SupportedLanguage } from '../i18n';
 import { publicRuntimeConfig } from '../config/runtime';
 
+const youtubeOsHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 const platforms = [
-  { name: 'YouTube OS', description: 'AI-powered YouTube automation and optimization platform.', accent: 'red', icon: '▶', motif: '◼︎ ◼︎ ◼︎', detail: 'Creator intelligence · Revenue monitoring' },
-  { name: 'AI Arbitrage', description: 'Autonomous arbitrage systems for global digital markets.', accent: 'violet', icon: '↗', motif: '╱╲╱╲', detail: 'Signals · Numbers · Fast execution' },
-  { name: 'AI Market Pulse Scalper', description: 'Real-time market scanning and scalping intelligence.', accent: 'emerald', icon: '♬', motif: '〰〰〰', detail: 'Pulse · News · Live signals' },
-  { name: 'AI Video Creator Studio', description: 'AI video generation and content creation suite.', accent: 'blue', icon: '◆', motif: '◒ ✂︎ ◓', detail: 'Palette · Editing · Karaoke generation' },
-  { name: 'AIArbiTech TV Global Media', description: 'Global media network and broadcasting platform.', accent: 'amber', icon: '▣', motif: '✦ ✦ ✦', detail: 'Cinema · Series · News · Stars' },
-  { name: 'Marketplace / Invest', description: 'A modern investment layer connected to digital revenue.', accent: 'pink', icon: '▱', motif: '%  +  ₿', detail: 'Wallets · Shares · Useful returns' },
+  { name: 'YouTube OS', description: 'AI-powered YouTube automation and optimization platform.', accent: 'red', icon: '▶', href: youtubeOsHref },
+  { name: 'AI Arbitrage', description: 'Autonomous arbitrage systems for global digital markets.', accent: 'violet', icon: '↗', href: '#platforms' },
+  { name: 'AI Market Pulse Scalper', description: 'Real-time market scanning and scalping AI platform.', accent: 'emerald', icon: '▮', href: '#platforms' },
+  { name: 'AI Video Creator Studio', description: 'AI video generation and content creation suite.', accent: 'blue', icon: '🎬', href: '#platforms' },
+  { name: 'AIArbiTech TV Global Media', description: 'Global media network and broadcasting platform.', accent: 'amber', icon: '📺', href: '#platforms' },
 ];
 
 const stats = [
   ['5+', 'Core Platforms', '◈'],
-  ['◎', 'Worldwide Access', '◎'],
-  ['24/7', 'Enterprise Security', '⬡'],
-  ['AI', 'Next Generation', '✦'],
-  ['1M+', 'Global Users', '♧'],
+  ['Global', 'Worldwide Access', '◎'],
+  ['Secure', 'Enterprise Grade', '⬡'],
+  ['AI-Powered', 'Next Generation', '✦'],
 ];
 
 const features = [
@@ -84,7 +83,7 @@ export function GlobalEcosystemHomePage() {
             <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/40 bg-gradient-to-br from-cyan-400/20 to-violet-500/30 text-xl font-black text-cyan-200">AI</span>
             <span className="leading-tight"><strong className="block text-sm tracking-wide">AIArbiTechnology</strong><small className="block text-[9px] uppercase tracking-[.3em] text-slate-400">Global Ecosystem</small></span>
           </a>
-          <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex"><a href="#ecosystem" className="text-white">Ecosystem</a><a href="#platforms" className="hover:text-white">Platforms</a><a href="#solutions" className="hover:text-white">Solutions</a><a href="#footer" className="hover:text-white">Company</a></div>
+          <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex"><a href="#ecosystem" className="text-white">Ecosystem</a><a href="#platforms" className="hover:text-white">Platforms</a><a href="#solutions" className="hover:text-white">Solutions</a><a href="#footer" className="hover:text-white">Developers</a><a href="#footer" className="hover:text-white">Company</a><a href="#footer" className="hover:text-white">Resources</a></div>
           <div className="flex items-center gap-3">
             <label className="hidden items-center gap-2 rounded-lg border border-white/15 px-2 py-1 text-sm text-slate-300 sm:flex">
               <span>{t('nav.language')}</span>
@@ -98,8 +97,8 @@ export function GlobalEcosystemHomePage() {
                 ))}
               </select>
             </label>
-            <button className="hidden rounded-lg border border-white/15 px-4 py-2 text-sm sm:block">{t('nav.login')}</button>
-            <a href="#platforms" className="rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-4 py-2 text-sm font-bold shadow-[0_0_24px_rgba(56,189,248,.22)]">{t('nav.register')}</a>
+            <button className="hidden rounded-lg border border-white/15 px-4 py-2 text-sm sm:block">Sign In</button>
+            <a href="#platforms" className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-500 px-4 py-2 text-sm font-bold shadow-[0_0_24px_rgba(99,102,241,.35)]">Enter Ecosystem</a>
           </div>
         </div>
       </nav>
@@ -109,10 +108,10 @@ export function GlobalEcosystemHomePage() {
           <div className="pointer-events-none absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-violet-700/15 blur-[120px]" />
           <div className="relative z-10">
             <p className="mb-5 text-xs font-bold uppercase tracking-[.32em] text-cyan-300">The future, connected</p>
-            <h1 className="max-w-2xl text-5xl font-black leading-[1.05] tracking-[-.04em] sm:text-7xl"><span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">AI-Powered.</span> <span className="text-white">Global.</span><br /><span className="text-white">Unlimited</span> <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">Possibilities.</span></h1>
+            <h1 className="max-w-2xl text-5xl font-black leading-[1.05] tracking-[-.04em] sm:text-7xl"><span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">AI-Powered.</span> <span className="text-white">Global.</span><br /><span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">Unlimited</span> <span className="text-white">Possibilities.</span></h1>
             <p className="mt-7 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">AIArbiTechnology Global Ecosystem connects powerful platforms, advanced AI services, and global users in one secure, transparent, future-ready environment.</p>
             <div className="mt-8 flex flex-wrap gap-3"><a href="#platforms" className="rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-6 py-3.5 font-bold shadow-[0_0_30px_rgba(56,189,248,.25)] transition hover:-translate-y-0.5">Explore Ecosystem <span className="ml-3">→</span></a><a href="#platforms" className="rounded-xl border border-blue-400/30 bg-blue-400/5 px-6 py-3.5 font-bold text-slate-200 transition hover:bg-blue-400/10">View Platforms</a></div>
-            <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-5 sm:gap-3">
+            <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4 sm:gap-3">
               {stats.map(([value, label, icon]) => <div key={label}><div className="mb-2 text-xl text-cyan-300">{icon}</div><p className="font-bold">{value}</p><p className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">{label}</p></div>)}
             </div>
           </div>
@@ -124,14 +123,13 @@ export function GlobalEcosystemHomePage() {
         </section>
 
         <section id="platforms" className="mx-auto max-w-[1380px] px-6 pb-20 lg:px-10">
-          <div className="mb-7 flex items-end justify-between"><div><p className="mb-3 text-xs font-bold uppercase tracking-[.3em] text-violet-300">Platform matrix</p><h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Every platform distinct. <span className="text-slate-400">One language.</span></h2><p className="mt-3 text-sm text-slate-400">Tailored experiences for every product, unified by the same intelligent foundation.</p></div><a href="#platforms" className="hidden text-sm text-slate-300 sm:block">View All Platforms →</a></div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mb-7 flex items-end justify-between"><div><h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Core Platforms</h2></div><a href="#platforms" className="hidden text-sm text-slate-300 sm:block">View All Platforms →</a></div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             {platforms.map((platform) => (
               <article key={platform.name} className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br to-slate-950/70 p-5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_15px_50px_rgba(59,130,246,.15)] ${platformThemes[platform.accent]}`}>
                 <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl shadow-[0_0_22px_rgba(59,130,246,.18)] ${platformThemes[platform.accent]}`}>{platform.icon}</div>
-                <div className="absolute right-5 top-7 text-xs tracking-[.3em] text-white/20">{platform.motif}</div>
-                <h3 className="pr-14 text-lg font-bold">{platform.name}</h3><p className="mt-3 min-h-12 text-sm leading-6 text-slate-400">{platform.description}</p><p className={`mt-4 text-[10px] uppercase tracking-wider ${platformThemes[platform.accent]}`}>{platform.detail}</p>
-                <a href="#platforms" className={`mt-5 inline-flex w-full items-center justify-center rounded-lg py-2.5 text-sm font-bold transition ${platformThemes[platform.accent]}`}>Enter Platform <span className="ml-3 transition group-hover:translate-x-1">→</span></a>
+                <h3 className="text-lg font-bold">{platform.name}</h3><p className="mt-3 min-h-16 text-sm leading-6 text-slate-400">{platform.description}</p>
+                <a href={platform.href} className={`mt-5 inline-flex w-full items-center justify-center rounded-lg py-2.5 text-sm font-bold transition ${platformThemes[platform.accent]}`}>Enter Platform</a>
               </article>
             ))}
           </div>
@@ -154,7 +152,7 @@ export function GlobalEcosystemHomePage() {
           <div><h3 className="text-sm font-bold text-white">Company</h3><div className="mt-4 grid gap-3 text-sm text-slate-400"><a href="#ecosystem" className="hover:text-cyan-300">About</a><a href={`mailto:${publicRuntimeConfig.supportEmail}`} className="hover:text-cyan-300">Contact</a><a href={`mailto:${publicRuntimeConfig.supportEmail}?subject=Privacy%20or%20data%20rights%20request`} className="hover:text-cyan-300">Privacy and data rights</a></div></div>
           <div><h3 className="text-sm font-bold text-white">Stay connected</h3><p className="mt-4 text-sm leading-6 text-slate-400">Discover what is next across the AIArbiTechnology ecosystem.</p><a href="#platforms" className="mt-5 inline-flex rounded-lg border border-cyan-300/30 px-4 py-2 text-sm font-bold text-cyan-200 hover:bg-cyan-300/10">Explore platforms →</a></div>
         </div>
-        <div className="border-t border-white/10"><div className="mx-auto flex max-w-[1380px] flex-col gap-2 px-6 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-10"><p>© {new Date().getFullYear()} AIArbiTechnology. All rights reserved.</p><p>Secure by design · Built for a shared future</p></div></div>
+        <div className="border-t border-white/10"><div className="mx-auto flex max-w-[1380px] flex-col gap-2 px-6 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-10"><p>© {new Date().getFullYear()} AIArbiTechnology. All rights reserved.</p><p>Privacy Policy · Terms of Service · Security · Contact Us · Help Center</p></div></div>
       </footer>
     </div>
   );

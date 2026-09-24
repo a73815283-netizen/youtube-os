@@ -1,4 +1,5 @@
 import { AppShell } from './AppShell';
+import { YouTubeOSLayout } from '../layout/YouTubeOSLayout';
 import { GlobalEcosystemHomePage } from '../pages/GlobalEcosystemHomePage';
 import { CreatorDashboard } from '../pages/CreatorDashboard';
 import { PresidentPanelPage } from '../pages/PresidentPanelPage';
@@ -26,8 +27,10 @@ export interface AppProps {
 export function App(_props: AppProps) {
   const path = window.location.pathname.replace(/^\/youtube-os/, '');
   const isCreatorRoute = path === '' || path === '/' || path === '/creator';
+  const isEcosystem = path === '/ecosystem';
   const page = isCreatorRoute ? <CreatorDashboard />
     : path === '/president' ? <PresidentPanelPage />
+    : isEcosystem ? <GlobalEcosystemHomePage />
     : path === '/goals' ? <GoalsPage />
     : path === '/music' ? <MusicStudioPage />
     : path === '/heir' ? <HeirPanelPage />
@@ -44,5 +47,8 @@ export function App(_props: AppProps) {
     : path === '/wallet' ? <WalletPage />
     : path === '/settings' ? <SettingsPage />
     : <GlobalEcosystemHomePage />;
-  return <AppShell>{page}</AppShell>;
+  const osShell = isCreatorRoute || [
+    '/president', '/goals', '/music', '/heir', '/admin', '/governance', '/ai-sync', '/workflow', '/prompts', '/onboarding', '/success', '/twin', '/assistant', '/analytics', '/wallet', '/settings',
+  ].includes(path);
+  return <AppShell>{osShell ? <YouTubeOSLayout variant={path === '/president' ? 'president' : 'creator'}>{page}</YouTubeOSLayout> : page}</AppShell>;
 }
